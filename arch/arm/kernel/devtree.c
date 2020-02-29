@@ -252,7 +252,7 @@ const struct machine_desc * __init setup_machine_fdt(unsigned int dt_phys)
 	/* We really don't want to do this, but sometimes firmware provides buggy data */
 	if (mdesc->dt_fixup)
 		mdesc->dt_fixup();
-
+	/* 扫描设备树节点  */
 	early_init_dt_scan_nodes();
 
 	/* Change machine number to match the mdesc we're using */

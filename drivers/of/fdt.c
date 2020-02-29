@@ -1053,8 +1053,11 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
 	while ((endp - reg) >= (dt_root_addr_cells + dt_root_size_cells)) {
 		u64 base, size;
 
+		/* 从设备树获取内存地址  */
 		base = dt_mem_next_cell(dt_root_addr_cells, &reg);
 		size = dt_mem_next_cell(dt_root_size_cells, &reg);
+		printk(KERN_INFO "\n\n-----%s %d base:0x%llx size:0x%llx-----\n\n",
+				__func__, __LINE__, base, size);
 
 		if (size == 0)
 			continue;
@@ -1163,7 +1166,9 @@ void __init __weak early_init_dt_add_memory_arch(u64 base, u64 size)
 		size -= phys_offset - base;
 		base = phys_offset;
 	}
+	/* 调用bootmem内存分配器,先将内存加入 */
 	memblock_add(base, size);
+	printk("-----%s %d-----\n", __func__, __LINE__);
 }
 
 int __init __weak early_init_dt_mark_hotplug_memory_arch(u64 base, u64 size)

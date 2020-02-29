@@ -1069,12 +1069,17 @@ void __init hyp_mode_check(void)
 		pr_info("CPU: All CPU(s) started in SVC mode.\n");
 #endif
 }
-
+/* ARM 体系结构初始化函数
+ *
+ *
+ *
+ */
 void __init setup_arch(char **cmdline_p)
 {
 	const struct machine_desc *mdesc;
 
 	setup_processor();
+	/* 从设备树获取参数  */
 	mdesc = setup_machine_fdt(__atags_pointer);
 	if (!mdesc)
 		mdesc = setup_machine_tags(__atags_pointer, __machine_arch_type);
